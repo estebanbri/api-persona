@@ -22,14 +22,17 @@ public class PersonaRepository {
         return persona.getId();
     }
 
-    public void borrarPersona(long id){
+    public Persona borrarPersona(long id){
         Persona persona = em.find(Persona.class, id);
-        em.remove(persona);
+        if(persona!=null){
+            em.remove(persona);
+        }
+        return persona;
     }
 
     public Persona actualizarPersona(long id, Persona persona){
         persona.setId(id);
-        em.merge(persona);
-        return persona;
+        Persona person = em.merge(persona);
+        return person;
     }
 }

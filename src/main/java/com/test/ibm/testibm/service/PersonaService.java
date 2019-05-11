@@ -30,8 +30,8 @@ public class PersonaService {
     }
 
     @Transactional
-    public void borrarPersona(long id){
-        personaRepository.borrarPersona(id);
+    public Persona borrarPersona(long id){
+        return personaRepository.borrarPersona(id);
     }
 
 }

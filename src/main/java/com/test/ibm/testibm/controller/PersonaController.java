@@ -55,15 +55,18 @@ public class PersonaController {
         if(!("Masculino".equals(persona.getSexo()) || "Femenino".equals(persona.getSexo()))){
             throw new BussinessFunctionalException(new ApiException(INPUT_ERROR,"/personas"));
         }
-        personaService.actualizarPersona(id, persona);
+        Persona person = personaService.actualizarPersona(id, persona);
         return ResponseEntity.status(HttpStatus.OK)
-                .build();
+                .body(person);
     }
 
     @DeleteMapping("/personas/{id}")
     public ResponseEntity<?> borrarPersona(@PathVariable long id){
-        personaService.borrarPersona(id);
+        Persona persona = personaService.borrarPersona(id);
+        if(persona==null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return ResponseEntity.status(HttpStatus.OK)
-                .build();
+                .body(persona);
     }
 }
