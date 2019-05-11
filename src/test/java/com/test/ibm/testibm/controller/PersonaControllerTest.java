@@ -4,28 +4,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.test.ibm.testibm.entity.Persona;
 import com.test.ibm.testibm.exceptions.BussinessFunctionalException;
 import com.test.ibm.testibm.service.PersonaService;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 
-import javax.validation.ConstraintViolationException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -41,9 +32,6 @@ public class PersonaControllerTest {
 
     @MockBean
     PersonaService service;
-
-    @Autowired
-    PersonaController controller;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -96,11 +84,9 @@ public class PersonaControllerTest {
 
         Persona personaMock = new Persona("Esteban", "Briceño", 30, "M");
 
-        when(controller.persistirPersona(personaMock)).thenReturn(new ResponseEntity<>(HttpStatus.CREATED));
+        when(service.persistPersona(personaMock)).thenThrow(BussinessFunctionalException.class);
 
-       mockMvc.perform(post("/v1/personas")
-                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                .content(objectMapper.writeValueAsString(personaMock)));
+        service.persistPersona(personaMock);
     }
 
 
