@@ -1,0 +1,1 @@
+create table PERSONA (id bigint not null IDENTITY , APELLIDO varchar(25), EDAD integer, NOMBRE varchar(25), SEXO varchar(20), primary key (id))
