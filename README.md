@@ -1,4 +1,8 @@
 # API-PERSONA
+Aplicacion *Spring Boot*.
+
+Comando para ejecutar la aplicacion: 
+> mvn clean install spring-boot:run
 
 ## POST
     * POST localhost:8080/v1/personas
