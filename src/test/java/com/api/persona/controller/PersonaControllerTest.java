@@ -1,9 +1,9 @@
-package com.test.ibm.testibm.controller;
+package com.api.persona.controller;
 
+import com.api.persona.model.Persona;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.test.ibm.testibm.entity.Persona;
-import com.test.ibm.testibm.exceptions.BussinessFunctionalException;
-import com.test.ibm.testibm.service.PersonaService;
+import com.api.persona.exceptions.BussinessFunctionalException;
+import com.api.persona.service.impl.PersonaServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class PersonaControllerTest {
     MockMvc mockMvc;
 
     @MockBean
-    PersonaService service;
+    PersonaServiceImpl service;
 
     @Autowired
     ObjectMapper objectMapper;

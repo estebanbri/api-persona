@@ -1,4 +1,4 @@
-package com.test.ibm.testibm.exceptions;
+package com.api.persona.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

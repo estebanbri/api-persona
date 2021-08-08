@@ -1,4 +1,4 @@
-package com.test.ibm.testibm.exceptions;
+package com.api.persona.exceptions;
 
 public class BussinessFunctionalException extends RuntimeException {
 

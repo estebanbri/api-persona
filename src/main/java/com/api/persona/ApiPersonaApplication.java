@@ -1,13 +1,13 @@
-package com.test.ibm.testibm;
+package com.api.persona;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TestIbmApplication {
+public class ApiPersonaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TestIbmApplication.class, args);
+		SpringApplication.run(ApiPersonaApplication.class, args);
 	}
 
 }

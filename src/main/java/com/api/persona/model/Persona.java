@@ -1,4 +1,4 @@
-package com.test.ibm.testibm.entity;
+package com.api.persona.model;
 
 import org.hibernate.validator.constraints.Range;
 
