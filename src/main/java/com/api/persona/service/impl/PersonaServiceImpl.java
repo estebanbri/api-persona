@@ -45,6 +45,9 @@ public class PersonaServiceImpl implements PersonaService {
         return p;
     }
 
+
+    // Lo mismo se puede hacer usando una libreria third party (Apache BeanUtils, Dozer, ObjectMapper) en vez de hacerlo directamente usando reflection
+    // BeanUtils.copyProperties(fieldsMap, persona) o dozerBeanMapper.map(...) o objectMapper.convertValue(...)
     public Persona actualizarParcialPersona(long id, Map<Object, Object> fields) {
         logger.debug("actualizarParcialPersona");
         Persona p = null;
