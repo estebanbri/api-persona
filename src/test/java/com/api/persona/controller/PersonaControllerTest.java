@@ -71,7 +71,7 @@ public class PersonaControllerTest {
 
         Persona personaMock = new Persona("Esteban", "Briceño", 30, "Masculino");
 
-        when(service.persistPersona(personaMock)).thenReturn(0L);
+        when(service.persistPersona(personaMock)).thenReturn(personaMock);
 
         mockMvc.perform(post("/v1/personas")
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
