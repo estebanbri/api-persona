@@ -29,11 +29,13 @@ Comando para ejecutar la aplicacion:
 ## Configuracion Spring:
 1) Agregar dependencia starter de spring-cache-redis (contiene spring-data-redis y Lettuce: cliente redis supports synchronous, asynchronous, and reactive interfaces whereas Jedis are synchronous and a Jedis connection is not thread-safe.)
 2) *Conexion a Redis Server* Crear RedisConfig.java y agregar bean LettuceConnectionFactory: fabrica/pool de conexiones al server (simil a db connections), aqui definis host y port del server.
-3) *Configuracion de las caches* Crear CacheConfig.java y agregar anotacion @EnableCaching y agregar bean CacheManager con todas las caches con sus respectivos ttl.
-4) *Configuracion la serializacion de objetos* Dentro de archivo CacheConfig.java y agregar bean RedisTemplate para configurar la serializacion y desserializacion de la KEY de los VALUES basicamente el formato de como va a guardar los datos en redis. 
-Once established, RedisTemplate becomes the main abstraction of Redis' operations that we can command. It also takes care of serialization and deserialization of objects to byte arrays.
-By default, RedisTemplate uses the JdkSerializationRedisSerializer to serialize and deserialize objects.
-The serialization mechanism of RedisTemplate can be changed, and Redis offers several serializers in the org.springframework.data.redis.serializer package:
+3) *Configuracion de las caches* Crear CacheConfig.java y agregar anotacion @EnableCaching y agregar Bean CacheManager con un Map<String, RedisCacheConfiguration> para definir y crear cada cache con su configuracion particular por ej, cada cache una puede tener su propio TTL y serializer de key y value segun el tipo de dato que sean.
+Es decir:
+- "user-cache": RedisCacheConfiguration(ttl=100s, keySerializer=StringRedisSerializer, valueSerializer=StringRedisSerializer)
+- "product-cache": RedisCacheConfiguration(ttl=100s, keySerializer=StringRedisSerializer, valueSerializer=GenericJackson2JsonRedisSerializer)
+
+Por defecto, el cliente redis usa JdkSerializationRedisSerializer para serializar y desserializar objetos. Dentro de el paquete org.springframework.data.redis.serializer tenemos todos los serializadores disponibles cada uno con su propias caracteristicas:
+Ejemplo:
 - JdkSerializationRedisSerializer, which is used by default for RedisCache and RedisTemplate.
 - StringRedisSerializer: Simple String to byte[]
 - GenericJackson2JsonRedisSerializer (Mapea Objecto a JSON): Generico y Simple ya viene con el ObjectMapper configurado (usa este en caso de no necesitas customizar el objectmapper)
