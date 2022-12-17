@@ -66,8 +66,7 @@ Ejemplo:
 - HGETALL cacheName::key: Para obtener valores de entry con tipo de dato hash (Ej: HGETALL "persona-cache::1")
 - GET cacheName::key: Para obtener valores de entry con tipo de dato string (Ej: GET "persona-cache::1")
 Ejemplo asi guarda una entry de objeto de tipo persona con GenericJackson2JsonRedisSerializer:
-"{\"@class\":\"com.api.persona.model.Persona\",\"id\":1,\"nombre\":\"Raul\",\"apellido\":\"Perez\",\"edad\":29,\"sexo\":\"Masculino\"}"
-  0\x05sr\x00\x1dcom.api.persona.model.Persona\x00\x00\x00\x00\x00\x00\x00\x01\x02\x00\x05J\x00\x02idL\x00\bapellidot\x00\x12Ljava/lang/String;L\x00\x04edadt\x00\x13Ljava/lang/Integer;L\x00\x06nombreq\x00~\x00\x01L\x00\x04sexoq\x00~\x00\x01xp\x00\x00\x00\x00\x00\x00\x00\x01t\x00\x05Perezsr\x00\x11java.lang.Integer\x12\xe2\xa0\xa4\xf7\x81\x878\x02\x00\x01I\x00\x05valuexr\x00\x10java.lang.Number\x86\xac\x95\x1d\x0b\x94\xe0\x8b\x02\x00\x00xp\x00\x00\x00\x1dt\x00\x04Rault\x00\tMasculino"
+> "{\"@class\":\"com.api.persona.model.Persona\",\"id\":1,\"nombre\":\"Raul\",\"apellido\":\"Perez\",\"edad\":29,\"sexo\":\"Masculino\"}"
 - FLUSHALL hace un reset del server borrando la data guardada previamente
 - TYPE *key-name* para saber el tipo de dato para desp poder saber que get usar para obtener el valor
 
