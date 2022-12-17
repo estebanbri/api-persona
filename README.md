@@ -29,10 +29,14 @@ Comando para ejecutar la aplicacion:
 ## Configuracion Spring:
 1) Agregar dependencia starter de spring-cache-redis (contiene spring-data-redis y Lettuce: cliente redis supports synchronous, asynchronous, and reactive interfaces whereas Jedis are synchronous and a Jedis connection is not thread-safe.)
 2) *Conexion a Redis Server* Crear RedisConfig.java y agregar bean LettuceConnectionFactory: fabrica/pool de conexiones al server (simil a db connections), aqui definis host y port del server.
-3) *Configuracion de las caches* Crear CacheConfig.java y agregar anotacion @EnableCaching y agregar Bean CacheManager con un Map<String, RedisCacheConfiguration> para definir y crear cada cache con su configuracion particular por ej, cada cache una puede tener su propio TTL y serializer de key y value segun el tipo de dato que sean.
+3) *Configuracion de las caches* Crear CacheConfig.java y agregar anotacion @EnableCaching y agregar Bean CacheManager con un Map<String, RedisCacheConfiguration> para definir y crear cada cache-name (nombre de cache que va a ser usado como prefijo de cada key para poder crear subconjuntos de keys agregupadas por prefijo serian como "subcaches") con su configuracion particular por ej, cada cache una puede tener su propio TTL y serializer de key y value segun el tipo de dato que sean.
 Es decir:
 - "user-cache": RedisCacheConfiguration(ttl=100s, keySerializer=StringRedisSerializer, valueSerializer=StringRedisSerializer)
 - "product-cache": RedisCacheConfiguration(ttl=100s, keySerializer=StringRedisSerializer, valueSerializer=GenericJackson2JsonRedisSerializer)
+
+Las KEYS quedarian con el siguiente formado de ambas dos caches pre-fijadas (KEY-PREFIX definidos aqui arriba):
+- user-cache::{KEY}
+- product-cache::{KEY}
 
 Por defecto, el cliente redis usa JdkSerializationRedisSerializer para serializar y desserializar objetos. Dentro de el paquete org.springframework.data.redis.serializer tenemos todos los serializadores disponibles cada uno con su propias caracteristicas:
 Ejemplo:
@@ -71,4 +75,7 @@ Ejemplo asi guarda una entry de objeto de tipo persona con GenericJackson2JsonRe
 > "{\"@class\":\"com.api.persona.model.Persona\",\"id\":1,\"nombre\":\"Raul\",\"apellido\":\"Perez\",\"edad\":29,\"sexo\":\"Masculino\"}"
 - FLUSHALL hace un reset del server borrando la data guardada previamente
 - TYPE *key-name* para saber el tipo de dato para desp poder saber que get usar para obtener el valor
+
+## Cliente GUI (Interfaz grafica)
+- RedisInsight (muy completa, se actualiza en tiempo real)
 
