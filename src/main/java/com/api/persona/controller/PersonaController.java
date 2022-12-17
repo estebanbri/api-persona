@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,16 @@ public class PersonaController {
     @Autowired
     PersonaServiceImpl personaServiceImpl;
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> obtenerPersonasPorId(@PathVariable Long id){
+        Persona persona = personaServiceImpl.getPersonaById(id);
+        if(persona == null){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .build();
+        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(persona);
+    }
 
     @PostMapping
     public ResponseEntity<?> persistirPersona(@RequestBody Persona persona){
@@ -58,3 +69,4 @@ public class PersonaController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
+

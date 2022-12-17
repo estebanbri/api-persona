@@ -33,11 +33,21 @@
 			<artifactId>hsqldb</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!--Contiene
+		     + spring-data-redis
+		     + Lettuce (cliente redis: Asynchronous communication via the Java 8's CompletionStage + Reactive Streams + It also uses Netty (Netty es un framework para crear aplicaciones cliente-servidor asincroncas basado en eventos (NIO event-driven))) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

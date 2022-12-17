@@ -1,6 +1,7 @@
 package com.api.persona.model;
 
 import org.hibernate.validator.constraints.Range;
+import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,10 +10,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Table(name="PERSONA")
-public class Persona {
+public class Persona implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
@@ -15,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.api.persona.config.CacheConfigurationProperties.PERSONAS_CACHE;
+
 @Service
 public class PersonaServiceImpl implements PersonaService {
 
@@ -22,6 +25,13 @@ public class PersonaServiceImpl implements PersonaService {
 
     @Autowired
     private PersonaRepository personaRepository;
+
+    @Cacheable(value = PERSONAS_CACHE, unless = "#result == null") // Por defecto si es un unico parametro va a tomar parametro para hacerlo key y el valor es el objeto retornado del metodo, en caso de tener mas de dos parametros necesitas especificarle cual es la key por medio del atributo key="#id" (Soporta SPEL para navegar por un objeton en caso de un objeto complejo))
+    public Persona getPersonaById(Long id){
+        logger.debug("getPersonaById");
+        return personaRepository.findById(id)
+                .orElse(null);
+    }
 
     public Persona persistPersona(Persona persona){
         logger.debug("persistPersona");
