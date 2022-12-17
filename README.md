@@ -24,7 +24,7 @@ Comando para ejecutar la aplicacion:
 # REDIS
 ## Usos:
 1) *CACHE*
-2) *IN-MEMORY DB* (gracias a los dos modos de persistencia en disco duro via SNAPSHOTTING o APPEND ONLY FILE (AOF) logra durabilidad y recovery de la data en el tiempo)
+2) *IN-MEMORY DB* (anotando @RedisHash tus objetos del model, y agregando @EnableRedisRepositories podes crear CrudRepositories y hacer consultas como si fuera una db comun y corriente) ** la durabilidad de ACID la logra con ver mecanismos de persistencia en disco duro que provee REDIS debajo (SNAPSHOTTING y AOF) **
 
 ## Configuracion Spring:
 1) Agregar dependencia starter de spring-cache-redis (contiene spring-data-redis y Lettuce: cliente redis supports synchronous, asynchronous, and reactive interfaces whereas Jedis are synchronous and a Jedis connection is not thread-safe.)
@@ -58,7 +58,7 @@ Usando *GenericJackson2JsonRedisSerializer*
 - *Jedis*:   sync y no thread safe connections
 - *Lettuce*: sync + async + reactive
 
-### Modos de almacenamiento (persistencia) de data en disco duro
+### Mecanismos de persistencia/almacenamiento de data en disco duro
 - *SNAPSHOTTING (RDB)* por defecto activo (configurable en redis.conf) Cada X tiempo guarda en disco, Ventaja: mas rapido, Desventaja: Se cae el sv y podes perder data insertada entre el tiempo sandwich de guardado y el momento final que se cayo
 - *APPEND ONLY FILE (AOF)* por defecto inactivo (configurable en redis.conf) Cada escritura es guardada en disco como un evento, V: la data no se pierde, D: mas lento
 
