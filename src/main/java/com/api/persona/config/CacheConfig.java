@@ -39,6 +39,7 @@ public class CacheConfig extends CachingConfigurerSupport {
         return RedisCacheConfiguration.defaultCacheConfig()
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
+                .disableCachingNullValues()
                 .entryTtl(Duration.ofSeconds(timeoutInSeconds));
     }
 

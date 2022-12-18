@@ -58,6 +58,16 @@ Usando *GenericJackson2JsonRedisSerializer*
 - *Jedis*:   sync y no thread safe connections
 - *Lettuce*: sync + async + reactive
 
+# @Cacheable
+## Conditional caching:
+- unless = "..." Se evalua DESPUES de ejecutarse el metodo y se debe cumplir para que NO se almacene la entry en cache. (el caso de si el objeto retornado es null ya esta configurado asi que no es necesario hacer unless = #result == null)
+- Ejemplo:
+- unless="#result == null" (indica que no queres que se almacene una entry nueva en caso de que el objeto retornado del metodo representado por result sea null, esto podes aplicarlo a nivel de configuracion RedisCacheConfiguration.disableCachingNullValues() para no tenes que poner el unless en todas las anotaciones @Cacheable)
+- condition = "..." : Se evalua ANTES de ejecutarse el metodo y se debe cumplir para que se almacene la entry en cache.
+- Ejemplos: 
+- condition="#name.length < 32" (indica que queres que se almacene la entry si es mejor a 32 el largo del nombre)
+- condition="#isCacheable" Podes pasar un argumento a tu metodo asi le pasas un flag boolean para indicarle si queres cachearlo o no desde la invocacion es decir "Persona metodo(Long id, boolean isCacheable)"
+
 ### Mecanismos de persistencia/almacenamiento de data en disco duro
 - *SNAPSHOTTING (RDB)* por defecto activo (configurable en redis.conf) Cada X tiempo guarda en disco, Ventaja: mas rapido, Desventaja: Se cae el sv y podes perder data insertada entre el tiempo sandwich de guardado y el momento final que se cayo
 - *APPEND ONLY FILE (AOF)* por defecto inactivo (configurable en redis.conf) Cada escritura es guardada en disco como un evento, V: la data no se pierde, D: mas lento
@@ -78,4 +88,5 @@ Ejemplo asi guarda una entry de objeto de tipo persona con GenericJackson2JsonRe
 
 ## Cliente GUI (Interfaz grafica)
 - RedisInsight (muy completa, se actualiza en tiempo real)
+
 

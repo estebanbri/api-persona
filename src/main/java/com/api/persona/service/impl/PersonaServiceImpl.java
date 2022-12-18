@@ -26,7 +26,7 @@ public class PersonaServiceImpl implements PersonaService {
     @Autowired
     private PersonaRepository personaRepository;
 
-    @Cacheable(value = PERSONAS_CACHE, unless = "#result == null") // Por defecto si es un unico parametro va a tomar parametro para hacerlo key y el valor es el objeto retornado del metodo, en caso de tener mas de dos parametros necesitas especificarle cual es la key por medio del atributo key="#id" (Soporta SPEL para navegar por un objeton en caso de un objeto complejo))
+    @Cacheable(value = PERSONAS_CACHE) // Por defecto si tu metodo tiene unico parametro va a ser tu KEY y el valor es el objeto retornado del metodo, en caso de tener mas de dos parametros necesitas especificarle cual es la key por medio del atributo key="#id" (Soporta SPEL para navegar por un objeton en caso de un objeto complejo))
     public Persona getPersonaById(Long id){
         logger.debug("getPersonaById");
         return personaRepository.findById(id)
